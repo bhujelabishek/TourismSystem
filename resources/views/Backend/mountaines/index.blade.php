@@ -54,8 +54,8 @@
                     </button>
                 </form></td>
                 <td>
-                    <a href="" class="btn-primar "><img src="/raw/editimg.png" style="height:25px;width:20px"></a>
-                    <a href="" class="btn-dange" id="del_btn"><img src="/raw/deleteimg.png"
+                    <a href="{{ route('mountaines.edit', $mountain->id) }}" class="btn-primary"><img src="/raw/editimg.png" style="height:25px;width:20px"></a>
+                    <a href="{{ route('mountaines.delete') }}" class="btn-dange" id="del_btn"><img src="/raw/deleteimg.png"
                             style="height:25px;width:20px"></a>
                 </td>
             </tr>

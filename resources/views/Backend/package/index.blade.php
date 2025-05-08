@@ -57,7 +57,7 @@
                 </form>
             </td>
             <td>
-                <a href="{{ route('package.edit', $package->id) }}" class="btn-primar "><img src="/raw/editimg.png" style="height:25px;width:20px" onclick="return confirm('Are you sure you want to edit this package?');"></a>
+                <a href="{{ route('package.edit', $package->id) }}" class="btn-primar "><img src="/raw/editimg.png" style="height:25px;width:20px" ></a>
                 <form action="{{ route('package.delete', $package->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')

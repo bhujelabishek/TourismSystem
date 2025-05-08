@@ -86,16 +86,21 @@ Route::get('package/toggle-status/{id}', [PackageController::class, 'toggleStatu
 //User
 Route::get('user/index', [UserController::class, 'index'])->name('user.index');
 Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('user/store', [UserController::class, 'store'])->name('user.store');
 Route::get('user/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::get('user/logout', [UserController::class, 'logout'])->name('user.logout');
+Route::get('user/toggle-status/{id}', [UserController::class, 'toggleStatus'])->name('user.toggleStatus');
+Route::delete('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+
 
 //mountaines
 Route::get('mountaines/index', [MountainesController::class, 'index'])->name('mountaines.index');
 Route::get('mountaines/create', [MountainesController::class, 'create'])->name('mountaines.create');
-Route::get('mountaines/edit', [MountainesController::class, 'edit'])->name('mountaines.edit');
 Route::post('mountaines/store', [MountainesController::class, 'store'])->name('mountaines.store');
-Route::get('mountaines/delete', [MountainesController::class, 'delete'])->name('mountaines.delete');
+Route::get('mountaines/delete', action: [MountainesController::class, 'delete'])->name('mountaines.delete');
 Route::get('mountaines/toggle-status/{id}', [MountainesController::class, 'toggleStatus'])->name('mountaines.toggleStatus');
+Route::get('mountaines/edit/{id}',[MountainesController::class,'edit'])->name('mountaines.edit');
+Route::post('mountaines/update/{id}',[MountainesController::class,'update'])->name('mountaines.update');
 
 //  // PROFILE
 //  Route::get('profile',[ProfileController::class,'index'])->name('user.profile');

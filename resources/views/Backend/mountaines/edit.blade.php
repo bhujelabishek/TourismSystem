@@ -7,7 +7,7 @@
                 <h4 style="color: green;">Edit Mountaines</h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="#">
+                <form method="POST" action="{{ route('mountaines.update', $mountaines_data->id) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="mountaineName">Mountaine Name</label>
@@ -72,15 +72,28 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="mountaineName">Trek Difficulty</label>
-                        <input type="text" style="padding: 20px; "class="form-control" id="difficulty" value="{{ old('difficulty') }}"
-                            name="difficulty">
+                        <label for="difficulty">Trek Difficulty</label>
+                        <select name="trek_difficulty" id="difficulty" class="form-control">
+                            <option value="">-- Select Difficulty --</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+
                         {{-- Error Message --}}
                         @error('difficulty')
-                            <div class="text-danger">{{ $message }}</div>
-                            <div class="text-center">
+                        <div class="text-danger text-center">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" style="float: right;" class="btn btn-primary">Edit Mountaines</button>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control" name="status" id="status">
+                            <option value="">-- Select Status --</option>
+                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                        @error('status') <div class="text-danger">{{ $message }}</div> @enderror
+                    </div>
+                    <button type="submit" style="float: right;" class="btn btn-primary">Update Mountaines</button>
         </body>
 @endsection
