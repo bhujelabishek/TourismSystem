@@ -51,7 +51,7 @@ class UserController extends Controller
             $user->email=$request->email;
             $user->phone=$request->phone;
             $user->status=$request->status;
-            $user->image=$imageName;
+            $user->image=$imageName ?? 'default.png'; ;
             $user->password=bcrypt($request->password);
             $user->save();
           // TO RETURN TO ANOTHER PAGE AFTER INSERTING WITH SUCESS MESSAGE

@@ -29,7 +29,19 @@
                     <li><a href="{{ route('package.index') }}">Packages</a></li>
                     {{-- <li><a href="#">Roles</a></li> --}}
                     {{-- <li><a href="#">Permissions</a></li> --}}
-                    <li><a href="">Logout</a></li>
+                    <li>
+                        <a href="#"
+                            onclick="event.preventDefault();
+                             if(confirm('Are you sure you want to logout?'))
+                             document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+
+                    </li>
                 </ul>
             </div>
         </div>

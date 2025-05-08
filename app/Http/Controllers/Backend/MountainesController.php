@@ -84,14 +84,24 @@ class MountainesController extends Controller
           // TO RETURN TO ANOTHER PAGE AFTER INSERTING WITH SUCESS MESSAGE
            return redirect()->route('mountaines.index')->with('success','mountaines'."\t".$data->name ."\t".'updated sucessfully');
     }
+    public function show($id)
+    {
+        $mountain = Mountain::findOrFail($id);
+        return view('frontend.front.show', compact('mountain'));
+    }
+
 
     public function create()
     {
         return view('Backend.mountaines.create');
     }
-    public function delete(){
-        return view('Backend.mountaines.delete');
+    public function delete($id)
+    {
+        $mountain = Mountain::findOrFail($id);
+        $mountain->delete();
+        return redirect()->route('mountaines.index')->with('success', 'Mountain deleted successfully.');
     }
+
     public function edit($id)
     {
         $mountaines_data=Mountain::where('id',$id)->first();

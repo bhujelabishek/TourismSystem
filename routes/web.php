@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MountainesController;
 use App\Http\Controllers\Backend\PackageController;
 use App\Http\Controllers\Backend\UserController;
+use App\Models\Mountain;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,22 +66,43 @@ Auth::routes();
 //  Route::get('attendes/delete/{id}',[AttendeController::class,'delete'])->name('attendes.delete');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
- // CATEGORY
- Route::get('/admin/categories/{id}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggleStatus');
- Route::get('categories/index', [CategoryController::class, 'index'])->name('categories.index');
- Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
- Route::post('categories/store', [CategoryController::class, 'store'])->name('categories.store');
- Route::get('categories/edit/{id}',[CategoryController::class,'edit'])->name('categories.edit');
- Route::post('categories/update/{id}',[CategoryController::class,'update'])->name('categories.update');
- Route::get('categories/delete/{id}',[CategoryController::class,'delete'])->name('categories.delete');
+// CATEGORY
+Route::get('/admin/categories/{id}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggleStatus');
+Route::get('categories/index', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('categories/store', [CategoryController::class, 'store'])->name('categories.store');
+Route::get('categories/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
+Route::post('categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
+Route::get('categories/delete/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
+
+//auth
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'admin.only'])
+    ->name('admin.dashboard');
+
+//default howepage
+Route::get('/', function () {return view('frontend.front.home');});
+
+
+
+//frontend
+Route::get('/home', function () {return view('frontend.front.home');})->name('home');
+
+//frontend
+//front
+Route::get('/home', function () {
+    $mountains = Mountain::where('status',1)->get();
+    return view('frontend.front.home', compact('mountains'));
+})->name('home');
 
 //Package
 Route::get('package/index', [PackageController::class, 'index'])->name('package.index');
 Route::get('package/create', [PackageController::class, 'create'])->name('package.create');
 Route::post('package/store', [PackageController::class, 'store'])->name('package.store');
-Route::get('package/edit/{id}',[PackageController::class,'edit'])->name('package.edit');
-Route::put('package/update/{id}',[PackageController::class,'update'])->name('package.update');
-Route::delete('package/delete/{id}', [PackageController::class,'delete'])->name('package.delete');
+Route::get('package/edit/{id}', [PackageController::class, 'edit'])->name('package.edit');
+Route::put('package/update/{id}', [PackageController::class, 'update'])->name('package.update');
+Route::delete('package/delete/{id}', [PackageController::class, 'delete'])->name('package.delete');
 Route::get('package/toggle-status/{id}', [PackageController::class, 'toggleStatus'])->name('package.toggleStatus');
 
 
@@ -97,16 +120,17 @@ Route::delete('user/delete/{id}', [UserController::class, 'delete'])->name('user
 Route::get('mountaines/index', [MountainesController::class, 'index'])->name('mountaines.index');
 Route::get('mountaines/create', [MountainesController::class, 'create'])->name('mountaines.create');
 Route::post('mountaines/store', [MountainesController::class, 'store'])->name('mountaines.store');
-Route::get('mountaines/delete', action: [MountainesController::class, 'delete'])->name('mountaines.delete');
+Route::delete('mountaines/delete{id}', action: [MountainesController::class, 'delete'])->name('mountaines.delete');
 Route::get('mountaines/toggle-status/{id}', [MountainesController::class, 'toggleStatus'])->name('mountaines.toggleStatus');
-Route::get('mountaines/edit/{id}',[MountainesController::class,'edit'])->name('mountaines.edit');
-Route::post('mountaines/update/{id}',[MountainesController::class,'update'])->name('mountaines.update');
+Route::get('mountaines/edit/{id}', [MountainesController::class, 'edit'])->name('mountaines.edit');
+Route::post('mountaines/update/{id}', [MountainesController::class, 'update'])->name('mountaines.update');
+Route::get('mountaines/{id}', [MountainesController::class, 'show'])
+     ->name('mountaines.show');
+
+//userlogin
+
+
 
 //  // PROFILE
 //  Route::get('profile',[ProfileController::class,'index'])->name('user.profile');
 //  Route::get('logout',[AuthController::class,'logout'])->name('user.logout');
-
-
-
-
-
