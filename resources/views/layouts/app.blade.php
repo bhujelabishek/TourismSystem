@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +17,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+
 <body>
     <div id="app">
         <!-- Custom Navbar -->
@@ -40,48 +42,54 @@
                             <a class="nav-link text-white" href="contactus.html">Contact Us</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-white" href="blog.html">Blog</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" href="travelinfo.html">Travel Info</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Destination
                             </a>
-                            <ul class="dropdown-menu" style="font-size: 19px;" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item text-dark" href="mt.html">Mount Everest</a></li>
-                                <li><a class="dropdown-item text-dark" href="k2.html">K2</a></li>
-                                <li><a class="dropdown-item text-dark" href="kan.html">Kangchenjunga</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 19px;">
+                                @foreach($mountains as $mountain)
+                                <a>
+                                    <a href="#" style="text-decoration: none;" ><span class="dropdown-item">{{ $mountain->name }}</span></a>
+                                </li>
+                                @endforeach
                             </ul>
                         </li>
+
                     </ul>
 
                     <!-- Authentication Links -->
                     @guest
-                        @if (Route::has('login'))
-                            <a class="btn btn-outline-light mx-lg-3" href="{{ route('login') }}">Sign In</a>
-                        @endif
+                    @if (Route::has('login'))
+                    <a class="btn btn-outline-light mx-lg-3" href="{{ route('login') }}">Sign In</a>
+                    @endif
 
-                        @if (Route::has('register'))
-                            <a class="btn btn-outline-light" href="{{ route('register') }}">Sign Up</a>
-                        @endif
+                    @if (Route::has('register'))
+                    <a class="btn btn-outline-light" href="{{ route('register') }}">Sign Up</a>
+                    @endif
                     @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
                     @endguest
                 </div>
             </div>
@@ -93,4 +101,5 @@
         </main>
     </div>
 </body>
+
 </html>

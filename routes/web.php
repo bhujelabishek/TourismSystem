@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MountainesController;
 use App\Http\Controllers\Backend\PackageController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Models\Mountain;
 
 /*
@@ -91,10 +92,17 @@ Route::get('/home', function () {return view('frontend.front.home');})->name('ho
 
 //frontend
 //front
-Route::get('/home', function () {
-    $mountains = Mountain::where('status',1)->get();
-    return view('frontend.front.home', compact('mountains'));
-})->name('home');
+Route::get('/', function () {
+    return redirect()->route('home');
+});
+
+// Use the controller
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Route::get('/home', function () {
+//     $mountains = Mountain::where('status',1)->get();
+//     return view('Frontend.front.home', compact('mountains'));
+// })->name('home');
 
 //Package
 Route::get('package/index', [PackageController::class, 'index'])->name('package.index');

@@ -11,6 +11,6 @@ class HomeController extends Controller
     {
         // fetch only active mountains
         $mountains = Mountain::where('status', 1)->get();
-        return view('frontend.front.home', compact('mountains'));
+        return view('Frontend.front.home', compact('mountains'));
     }
 }

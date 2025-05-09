@@ -6,7 +6,7 @@
         <div class="row">
             <!-- Quick Links -->
             <div class="col-md-4 mb-4">
-                <h5>Pages</h5>
+                <h5>Quick Links</h5>
                 <ul class="list-unstyled">
                     <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
                     <li><a href="aboutus.html" class="text-white text-decoration-none">About Us</a></li>
